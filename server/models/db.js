@@ -28,8 +28,10 @@ connection.connect(error => {
         id int(11) NOT NULL PRIMARY KEY AUTO_INCREMENT, \
         name varchar(255) NOT NULL, \
         pickUpLocation varchar(255) NOT NULL, \
-        flightDepartureTime DATETIME NOT NULL, \
-        preferredPickUpTime DATETIME NOT NULL \
+        flightDepartureTime TIME NOT NULL, \
+        preferredPickUpTime TIME NOT NULL, \
+        PickUpDate DATE NOT NULL, \
+        FlightDate DATE NOT NULL \
         )",
         function (err, result) {
             if (err) throw err;

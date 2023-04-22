@@ -2,8 +2,9 @@
   "name": "server",
   "version": "1.0.0",
   "description": "",
-  "main": "flight_tracker.js",
+  "main": "server.js",
   "scripts": {
+    "start": "nodemon server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
@@ -11,6 +12,8 @@
   "license": "ISC",
   "dependencies": {
     "dotenv": "^16.0.3",
-    "https": "^1.0.0"
+    "firebase-admin": "^11.7.0",
+    "https": "^1.0.0",
+    "nodemon": "^2.0.22"
   }
 }
