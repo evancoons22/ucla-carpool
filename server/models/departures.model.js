@@ -1,17 +1,18 @@
 const sql = require("./db.js");
 
 // constructor
-const LeaveUclaInfo = function(leaveUclaInfo) {
-  this.pickUpLocation = leaveUclaInfo.pickUpLocation;
-  this.flightDepartureTime = leaveUclaInfo.flightDepartureTime;
-  this.preferredPickUpTime = leaveUclaInfo.preferredPickUpTime;
-  this.name = leaveUcla.name;
+const LeaveUclaInfo = function(pickUpLocation, flightDepartureTime, preferredPickUpTime, name) {
+  this.pickUpLocation = pickUpLocation;
+  this.flightDepartureTime = flightDepartureTime;
+  this.preferredPickUpTime = preferredPickUpTime;
+  this.name = name;
 };
 
 
-// TODO: make leaveUclaInfo table
 LeaveUclaInfo.create = (newLeaveUclaInfo, result) => {
-  sql.query("INSERT INTO leaveUclaInfo SET ?", newLeaveUclaInfo, (err, res) => {
+  sql.query(`INSERT INTO leaveUclaInfo(pickUpLocation, flightDepartureTime, preferredPickUpTime, name) \
+  VALUES ("${newLeaveUclaInfo.pickUpLocation}", "${newLeaveUclaInfo.flightDepartureTime}", "${newLeaveUclaInfo.preferredPickUpTime}", "${newLeaveUclaInfo.name}")`,
+    (err, res) => {
     if (err) {
       console.log("error: ", err);
       result(err, null);

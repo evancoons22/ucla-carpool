@@ -1,24 +1,24 @@
-const LeaveUclaInfo = require("../models/depatures.model.js");
+const LeaveUclaInfo = require("../models/departures.model.js");
 
 // Create and Save a new LeaveUclaInfo object
 exports.create = (req, res) => {
   // Validate request
-  if (!req.bobdy) {
-    res.status(400).setnd({
+  if (!req.body) {
+    res.status(400).send({
         message: "Content can not be empty!"
     });
   }
 
   // Create LeaveUclaInfo object
-  const depatureInfo = new LeaveUclaInfo ({
-    pickUpLocation: req.body.pickUpLocation,
-    flightDepartureTime: req.body.flightDepartureTime,
-    preferredPickUpTime: req.body.preferredPickUpTime,
-    name: req.body.name,
-  });
+  const newLeaveUclaInfo = new LeaveUclaInfo (
+    req.body.pickUpLocation,
+    req.body.flightDepartureTime,
+    req.body.preferredPickUpTime,
+    req.body.name,
+  );
 
   // Save depatureInfo in the database
-  LeaveUclaInfo.create(depatureInfo, (err, data) => {
+  LeaveUclaInfo.create(newLeaveUclaInfo, (err, data) => {
     if (err)
         res.status(500).send({
             message:
