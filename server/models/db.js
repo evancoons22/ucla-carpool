@@ -11,29 +11,25 @@ const connection = mysql.createConnection({
 
 // open the MySQL connection
 connection.connect(error => {
-  if (error) throw error;
-  console.log("Successfully connected to the database.");
-});
+    if (error) throw error;
+    console.log("Successfully connected to the database.");
 
-con.connect(function(err) {
-    if (err) throw err;
-    console.log("Connected!");
-    con.query("CREATE DATABASE IF NOT CONNECTED uclaCarpool", function (err, result) {
+    connection.query("CREATE DATABASE IF NOT EXISTS uclaCarpool", function (err, result) {
       if (err) throw err;
       console.log("Database created");
     });
 
-    con.query("USE uclaCarpool", function (err, result) {
+    connection.query("USE uclaCarpool", function (err, result) {
         if (err) throw err;
         console.log("Using database");
     });
 
-    con.query("CREATE TABLE IF NOT EXISTS leaveUclaInfo ( \
+    connection.query("CREATE TABLE IF NOT EXISTS leaveUclaInfo ( \
         id int(11) NOT NULL PRIMARY KEY AUTO_INCREMENT, \
         name varchar(255) NOT NULL, \
         pickUpLocation varchar(255) NOT NULL, \
         flightDepartureTime DATETIME NOT NULL, \
-        preferredPickUpTime DATETIME NOT NULL, \
+        preferredPickUpTime DATETIME NOT NULL \
         )",
         function (err, result) {
             if (err) throw err;
