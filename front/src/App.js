@@ -1,16 +1,23 @@
 import './App.css';
 import EnterDetails from './components/EnterDetails.js';
+import Display from './components/Display.js';
 
 function App() {
   return (
     <div className="App">
       
       <header className="App-header">
-      <h3> Submit Name and Flight Number </h3>
+      <h3> UCLA-LAX Carpool</h3>
       </header>
 
       <body className = 'body'>
-          <EnterDetails className = 'submit' /> 
+            <div className = 'submit'> 
+                <EnterDetails />  
+            </div> 
+
+            <div className = 'table'> 
+                <Display /> 
+            </div> 
       </body> 
 
     </div>
