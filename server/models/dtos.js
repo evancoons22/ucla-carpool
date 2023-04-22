@@ -17,13 +17,13 @@ LeaveUclaInfo.create = (newLeaveUclaInfo, result) => {
       return;
     }
 
-    console.log("created tutorial: ", { id: res.insertId, ...newTutorial });
-    result(null, { id: res.insertId, ...newTutorial });
+    console.log("created leaveUCLA: ", { id: res.insertId, ...newLeaveUclaInfo });
+    result(null, { id: res.insertId, ...newLeaveUclaInfo });
   });
 };
 
-Tutorial.findById = (id, result) => {
-  sql.query(`SELECT * FROM tutorials WHERE id = ${id}`, (err, res) => {
+LeaveUclaInfo.findById = (id, result) => {
+  sql.query(`SELECT * FROM leaveUclaInfo WHERE id = ${id}`, (err, res) => {
     if (err) {
       console.log("error: ", err);
       result(err, null);
@@ -31,7 +31,7 @@ Tutorial.findById = (id, result) => {
     }
 
     if (res.length) {
-      console.log("found tutorial: ", res[0]);
+      console.log("found leaveUCLA: ", res[0]);
       result(null, res[0]);
       return;
     }
@@ -41,11 +41,11 @@ Tutorial.findById = (id, result) => {
   });
 };
 
-Tutorial.getAll = (title, result) => {
-  let query = "SELECT * FROM tutorials";
+LeaveUclaInfo.getAll = (title, result) => {
+  let query = "SELECT * FROM leaveUclaInfo";
 
   if (title) {
-    query += ` WHERE title LIKE '%${title}%'`;
+    query += ` WHERE flightDepartureTime LIKE '%${flightDepartureTime}%'`;
   }
 
   sql.query(query, (err, res) => {
@@ -55,49 +55,14 @@ Tutorial.getAll = (title, result) => {
       return;
     }
 
-    console.log("tutorials: ", res);
+    console.log("leaveUclaInfo: ", res);
     result(null, res);
   });
 };
 
-Tutorial.getAllPublished = result => {
-  sql.query("SELECT * FROM tutorials WHERE published=true", (err, res) => {
-    if (err) {
-      console.log("error: ", err);
-      result(null, err);
-      return;
-    }
 
-    console.log("tutorials: ", res);
-    result(null, res);
-  });
-};
-
-Tutorial.updateById = (id, tutorial, result) => {
-  sql.query(
-    "UPDATE tutorials SET title = ?, description = ?, published = ? WHERE id = ?",
-    [tutorial.title, tutorial.description, tutorial.published, id],
-    (err, res) => {
-      if (err) {
-        console.log("error: ", err);
-        result(null, err);
-        return;
-      }
-
-      if (res.affectedRows == 0) {
-        // not found Tutorial with the id
-        result({ kind: "not_found" }, null);
-        return;
-      }
-
-      console.log("updated tutorial: ", { id: id, ...tutorial });
-      result(null, { id: id, ...tutorial });
-    }
-  );
-};
-
-Tutorial.remove = (id, result) => {
-  sql.query("DELETE FROM tutorials WHERE id = ?", id, (err, res) => {
+LeaveUclaInfo.remove = (id, result) => {
+  sql.query("DELETE FROM leaveUclaInfo WHERE id = ?", id, (err, res) => {
     if (err) {
       console.log("error: ", err);
       result(null, err);
@@ -110,22 +75,22 @@ Tutorial.remove = (id, result) => {
       return;
     }
 
-    console.log("deleted tutorial with id: ", id);
+    console.log("deleted leaveUclaInfo with id: ", id);
     result(null, res);
   });
 };
 
-Tutorial.removeAll = result => {
-  sql.query("DELETE FROM tutorials", (err, res) => {
+LeaveUclaInfo.removeAll = result => {
+  sql.query("DELETE FROM leaveUclaInfo", (err, res) => {
     if (err) {
       console.log("error: ", err);
       result(null, err);
       return;
     }
 
-    console.log(`deleted ${res.affectedRows} tutorials`);
+    console.log(`deleted ${res.affectedRows} leaveUclaInfo`);
     result(null, res);
   });
 };
 
-module.exports = Tutorial;
+module.exports = LeaveUclaInfo;
