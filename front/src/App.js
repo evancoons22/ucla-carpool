@@ -1,6 +1,6 @@
 import './App.css';
 import EnterDetails from './components/EnterDetails.js';
-import Display from './components/Display.js';
+import DisplayTable from './components/DisplayTable.js';
 
 function App() {
   return (
@@ -11,13 +11,12 @@ function App() {
       </header>
 
       <body className = 'body'>
-            <div className = 'submit'> 
-                <EnterDetails />  
-            </div> 
-
-            <div className = 'table'> 
-                <Display /> 
-            </div> 
+          <div className = 'submit'> 
+              <EnterDetails />  
+          </div> 
+          <div className = 'table'> 
+              <DisplayTable /> 
+          </div> 
       </body> 
 
     </div>
