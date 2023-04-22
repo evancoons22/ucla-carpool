@@ -28,7 +28,7 @@ con.connect(function(err) {
         console.log("Using database");
     });
 
-    con.query("CREATE TABLE IF NOT EXISTS departures ( \
+    con.query("CREATE TABLE IF NOT EXISTS leaveUclaInfo ( \
         id int(11) NOT NULL PRIMARY KEY AUTO_INCREMENT, \
         name varchar(255) NOT NULL, \
         pickUpLocation varchar(255) NOT NULL, \

@@ -9,5 +9,15 @@ module.exports = app => {
     //get all departures
     router.get("/", departures.findAll);
 
+    // Retrieve a single LeaveUclaInfo with title
+    router.get("/:title", depatures.findOne);
+
+    // Delete a Tutorial with id
+    router.delete("/:title", depatures.delete);
+
+    // Delete all Tutorials
+    router.delete("/", departues.deleteAll);
+
+
     app.use('/api/departures', router);
 }
