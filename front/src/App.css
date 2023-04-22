@@ -1,6 +1,6 @@
 .App {
   text-align: center;
-  background-color: #282c34;
+  background-color: #fffff;
 }
 
 .App-logo {
@@ -15,38 +15,44 @@
 }
 
 .App-header {
-  background-color: #282c34;
+  background-color: #fffff;
   min-height: 10vh;
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: center;
   font-size: calc(10px + 2vmin);
-  color: white;
+  color: black;
 }
 
 .body { 
-  background-color: #282c34;
+  background-color: #fffff;
   min-height: 90vh;
   display: grid;
-  grid-template-columns: 30% [col-start] 70% [col-start]; 
+  grid-template-columns: 10% [col-start] 10% [col-start] auto [col-start] 10% [col-start];
   font-size: calc(10px + 2vmin);
-  color: white;
+  color: black;
   gap: 6px;
 } 
 
 .submit { 
     padding:  12px;
-    grid-column-start: 1;
-    grid-column-end: 2;
+    grid-column-start: 2;
+    grid-column-end: 3;
     align-self: start;
 } 
 
 .table { 
-    grid-column-start: 2;
-    grid-column-end: 3;
+    grid-column-start: 4;
+    grid-column-end: 5;
     padding: 12px;
     align-self: start;
+}
+
+.calendar { 
+    grid-column-start: 3;
+    grid-column-end: 4;
+    padding: 12px;
 }
 
 .App-link {

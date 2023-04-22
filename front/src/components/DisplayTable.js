@@ -17,9 +17,12 @@ const DisplayTable = () => {
     const [data, setData] = useState(null);
     
     useEffect( () => { 
-        // get Data on load
-        // let response = fetch(URL, body = {}) 
-    })
+        // FETCH REQUEST TO GET ALL USER DATA
+        fetch('/api/users')
+            .then(response => response.json())
+            .then(data => setData(data))
+            .catch(error => console.error(error));
+    }, []);
 
     const fakedata = [
       { name: 'John Doe', departureTime: '9:00 AM' },
