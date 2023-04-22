@@ -5,6 +5,8 @@ const LeaveUclaInfo = function(leaveUclaInfo) {
   this.pickUpLocation = leaveUclaInfo.pickUpLocation;
   this.flightDepartureTime = leaveUclaInfo.flightDepartureTime;
   this.preferredPickUpTime = leaveUclaInfo.preferredPickUpTime;
+  this.name = leaveUcla.name;
+
 };
 
 
