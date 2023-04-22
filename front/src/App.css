@@ -1,5 +1,6 @@
 .App {
   text-align: center;
+  background-color: #282c34;
 }
 
 .App-logo {
@@ -27,8 +28,8 @@
 .body { 
   background-color: #282c34;
   min-height: 90vh;
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: 30% [col-start] 60% [col-start] 10% [col-start];
   align-items: center;
   justify-content: center;
   font-size: calc(10px + 2vmin);
@@ -36,8 +37,18 @@
 } 
 
 .submit { 
-
+    padding:  100px;
+    grid-column-start: 1;
+    grid-column-end: 2;
 } 
+
+.table { 
+    grid-column-start: 2;
+    grid-column-end: 3;
+    padding: 12px;
+    border: '10px'; 
+    borderColor: white;
+}
 
 .App-link {
   color: #61dafb;

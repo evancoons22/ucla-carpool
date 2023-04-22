@@ -1,4 +1,5 @@
 import {React, useState} from "react";
+import { Button, Input } from '@chakra-ui/react'
 
 const EnterDetails = () => { 
 
@@ -15,18 +16,17 @@ const EnterDetails = () => {
         <div> 
             <form onSubmit={handleSubmit}>
                 <label>
-                    Name:  
-                    <input type="text" value={name} onChange={(event) => setName(event.target.value)} />
+                    Name: <Input  placeholder = 'Enter Name' type="text" value={name} onChange={(event) => setName(event.target.value)} />
                 </label>
 
                 <br /> 
                 <label>
-                    Number:
-                    <input type="flightnumber" value={flightnumber} onChange={(event) => setFlightNumber(event.target.value)} />
+                    Time:
+                    <Input placeholder="Select Date and Time" size="md" type="datetime-local" value={flightnumber} onChange={(event) => setFlightNumber(event.target.value)}  />
                 </label>
 
                 <br /> 
-                <button type="submit" value = "Submit" >Submit</button>
+                <Button colorScheme = 'blue' >Submit</Button>
             </form>
         </div> 
 
