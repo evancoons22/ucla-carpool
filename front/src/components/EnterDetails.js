@@ -19,11 +19,10 @@ const EnterDetails = () => {
 
     const [name, setName] = useState('');
     const [usertime, setUsertime] = useState('');
-    const [email, setEmail] = useState('');
     const [phonenumber, setPhoneNumber] = useState('');
     const [arriving, setArriving] = useState('');
 
-    const URL = 'http://localhost:8080/create/user';
+    const URL = 'http://localhost:8080/create/event/timed';
 
 
     const handleSubmit = (event) => { 
@@ -33,32 +32,27 @@ const EnterDetails = () => {
             headers: {
                 'Content-Type': 'application/json',
             },
-            mode: 'no-cors',
-            body: JSON.stringify({ username: name, bio: 'defaultbio', socialMedia: 'epicgamer12345', uclaHome: 'ok??'   })
+            body: JSON.stringify({ username: name, social_media_handle: phonenumber, flight_time: usertime.toString(), arrival_or_departure: arriving})
         })
             .then(response => response.json())
             .then(data => { 
                 console.log(data);
-                event.target.reset();
             })
             .catch(error => console.error(error));
+        console.log(arriving);
 
         console.log("submithandled");
         setName('');
         setUsertime('');
-        setEmail('');
         setPhoneNumber('');
         setArriving('');
 
-        setTimeout(() => {
-          alert(JSON.stringify("submission processed"))
-        }, 1000)
     } 
 
     return ( 
 
         <div>
-          <Button onClick={onOpen}>Create Time</Button>
+          <Button width = '100%' onClick={onOpen}>Create Time</Button>
           <Modal isOpen={isOpen} onClose={onClose}>
             <ModalOverlay />
             <ModalContent>
@@ -77,18 +71,15 @@ const EnterDetails = () => {
 
                     <br />
                     <br />
-                        <Input variant='filled' placeholder="Phone Number" size="md" type="tel" value={phonenumber} onChange={(event) => setPhoneNumber(event.target.value)}  />
+                        <Input variant='filled' placeholder="Social Media Handle" size="md" type="text" value={phonenumber} onChange={(event) => setPhoneNumber(event.target.value)}  />
 
-                    <br />
-                    <br />
-                        <Input variant='filled' placeholder="Email" size="md" type="email" value={email} onChange={(event) => setEmail(event.target.value)}  />
 
                     <br />
                     <br />
                     <RadioGroup onChange={setArriving} value={arriving}>
                       <Stack direction='row'>
-                        <Radio value='Arrival'>Arriving</Radio>
-                        <Radio value='Departure'>Departing</Radio>
+                        <Radio value='arrival'>Arriving</Radio>
+                        <Radio value='departure'>Departing</Radio>
                       </Stack>
                     </RadioGroup>
 
