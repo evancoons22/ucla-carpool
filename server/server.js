@@ -3,6 +3,10 @@ const app = express();
 const mapFunc = require('./maps/maps.js');
 const cors = require('cors');
 
+app.use(cors({
+ origin: '*'
+ }));
+
 const admin = require("firebase-admin");
 const credentials = require("./key.json");
 
@@ -21,6 +25,16 @@ app.use(express.urlencoded({extended: true}));
 const getAllUsers = async () => {
   const usersRef = db.collection("users");
   const response = await usersRef.get();
+  let responseArr = [];
+  response.forEach(doc => {
+    responseArr.push(doc.data());
+  });
+  return responseArr;
+}
+
+const getAllEvents = async () => {
+  const eventsRef = db.collection("events");
+  const response = await eventsRef.get();
   let responseArr = [];
   response.forEach(doc => {
     responseArr.push(doc.data());
@@ -231,6 +245,7 @@ app.post('/create/:username/addArrivalFlight', async (req, res) => {
 app.get('/read/users', async (req, res) => {
   try {
     const users = await getAllUsers();
+    res.setHeader('Access-Control-Allow-Origin', '*');
     res.send(users);
   } catch(error) {
     res.send(error);
@@ -249,6 +264,18 @@ app.get('/read/user/:username', async (req, res) => {
     res.send(error);
   }
 })
+
+app.get('/read/events', async (req, res) => { 
+try { 
+    const events = await getAllEvents();
+    console.log(events);
+    res.send(events);
+} catch(error) { 
+    console.log(error);
+    res.send(error);
+  }
+})
+
 
 app.post('/update', async (req, res) => {
   try {
@@ -282,9 +309,13 @@ const setDepartureTime = async (leaveDate) => {
 }
 
 //cors
+//
 app.use(cors({
-    origin: '*'
-}));
+ origin: '*'
+ }));
+
+app.use(cors());
+
 // set port, listen for requests
 const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {
