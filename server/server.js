@@ -1,5 +1,6 @@
 const express = require("express");
 const app = express();
+const mapFunc = require('./maps/maps.js');
 
 const admin = require("firebase-admin");
 const credentials = require("./key.json");
@@ -261,6 +262,23 @@ app.post('/update', async (req, res) => {
     res.send(error);
   }
 })
+const getDriveTime = async() => {
+  const t = await mapFunc.getRideTime();
+  console.log("IN server ", t);
+  return t;
+}
+
+const getDriveDist = async() => {
+  const dist = await mapFunc.getRideDist();
+  console.log("In Server, distance ", dist);
+  return dist;
+}
+
+//all dates MUST BE IN THE FUTURE
+const setDepartureTime = async (leaveDate) => {
+   mapFunc.getDepartureTime(leaveDate);
+  console.log("In server, set departure time to", leaveDate);
+}
 
 // set port, listen for requests
 const PORT = process.env.PORT || 8080;

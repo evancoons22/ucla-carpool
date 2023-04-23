@@ -11,11 +11,9 @@ let user_date = new Date();
 //takes in a date object, sets departure time to input if called
 function getDepartureTime(req, res) {
     user_date = req;
-    console.log(user_date);
+    console.log('SET USER DATA', user_date);
 }
 
-// const testDate = new Date(2023, 3, 24, 10, 30, 0);
-// getDepartureTime(testDate);
 
 const seconds = secondsSinceEpoch(user_date);
 //console.log(seconds);
@@ -48,30 +46,30 @@ function fetchData() {
 };
 
 
-function getRideTime() {
-    fetchData()
-    .then(data => {
-        const ride_time_traffic = data.rows[0].elements[0].duration_in_traffic.text;
-        //console.log(ride_time_traffic);
-        return ride_time_traffic;
-    })
-    .catch(error => {
-        console.error(error);
-    })
-}
 
-function getRideDist() {
-    fetchData()
-    .then(data => {
-        const ride_distance = data.rows[0].elements[0].distance.text;
-        //console.log(ride_distance);
-        return ride_distance;
-    })
-    .catch(error => {
-        console.error(error);
-    })
-}
+async function getRideDist() {
+    try {
+      const data = await fetchData();
+      const ride_distance = data.rows[0].elements[0].distance.text;
+      console.log(ride_distance);
+      return ride_distance;
+    } catch (error) {
+      console.error(error);
+      throw error;
+    }
+  }
 
+async function getRideTime() {
+    try {
+        const data = await fetchData();
+        const ride_time = data.rows[0].elements[0].duration_in_traffic.text;
+        console.log('In MAPS.js', ride_time);
+        return ride_time;
+    } catch (error) {
+        console.error(error);
+        throw error;
+    }
+}
 
 module.exports = {
     getRideTime,
