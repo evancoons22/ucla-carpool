@@ -1,28 +1,20 @@
-require('dotenv').config({ path: './.env' });
 const https = require('https');
-console.log(process.env.FLIGHT_AWARE_API);
 
 const options = {
-  hostname: 'aeroapi.flightaware.com',
-  path: '/aeroapi/airports/KLAX/flights?type=Airline&start=2023-04-23&end=2023-04-24&max_pages=1',
-  method: 'GET',
+  hostname: 'flightxml.flightaware.com',
+  path: '/json/FlightXML3/Search',
+  method: 'POST',
   headers: {
-    'Accept': 'application/json; charset=UTF-8',
-    'x-apikey': process.env.FLIGHT_AWARE_API
+    'Content-Type': 'application/json',
+    'Authorization': 'Bearer YlMdNSLz1cxaYLDubBSlhpsG4kzKRXfg'
   }
 };
 
 const req = https.request(options, res => {
-  let data = '';
   console.log(`statusCode: ${res.statusCode}`);
-  
-  res.on('data', chunk => {
-    data += chunk;
-  });
 
-  res.on('end', () => {
-    const jsonData = JSON.parse(data);
-    console.log(jsonData);
+  res.on('data', d => {
+    process.stdout.write(d);
   });
 });
 
@@ -30,4 +22,11 @@ req.on('error', error => {
   console.error(error);
 });
 
+const postData = JSON.stringify({
+  "query": "arrived >= 'YYYY/MM/DD 00:00:00' and arrived <= 'YYYY/MM/DD 23:59:59' and destination = 'KLAX'",
+  "howMany": 15,
+  "offset": 0
+});
+
+req.write(postData);
 req.end();
