@@ -288,7 +288,7 @@ const setDepartureTime = async (leaveDate) => {
 
 // SECOND ROUND OF ENDPOINTS -> (CRUD)
 
-// Create Generic Event
+// Create Generic Timed Event
 app.post('/create/event/timed', async (req, res) => {
   try {
     const username = req.body.username;
@@ -392,6 +392,40 @@ app.delete('/delete/timed/:id', async (req, res) => {
     console.log(error);
     res.send(error);
 }})
+
+// search departures
+app.get('/search/departures', async (req, res) => {
+  try {
+    const eventsRef = db.collection("departures");
+    const events = await eventsRef.get();
+    let eventsList = [];
+    events.forEach(event => {
+      eventsList.push(event.data());
+    })
+    res.send(eventsList);
+  } catch (error) {
+    console.log(error);
+    res.send(error);
+  }
+})
+
+// search arrivals
+app.get('/search/arrivals', async (req, res) => {
+  try {
+    const eventsRef = db.collection("arrivals");
+    const events = await eventsRef.get();
+    let eventsList = [];
+    events.forEach(event => {
+      eventsList.push(event.data());
+    })
+    res.send(eventsList);
+  } catch (error) {
+    console.log(error);
+    res.send(error);
+  }
+})
+
+
 
 //cors
 app.use(cors({
