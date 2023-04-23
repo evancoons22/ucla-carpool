@@ -263,6 +263,7 @@ app.post('/update', async (req, res) => {
     res.send(error);
   }
 })
+
 const getDriveTime = async() => {
   const t = await mapFunc.getRideTime();
   console.log("IN server ", t);
@@ -281,10 +282,73 @@ const setDepartureTime = async (leaveDate) => {
   console.log("In server, set departure time to", leaveDate);
 }
 
+// SECOND ROUND OF ENDPOINTS
+
+app.post('/create/event/timed', async (req, res) => {
+  try {
+    const username = req.body.username;
+    const flightTime = req.body.flightTime;
+    const eventsRef = db.collection("events");
+    const events = await eventsRef.get();
+    events.forEach(doc => {
+      if (doc.data().username === username && doc.data().flight_time === flightTime) {
+        throw new Error("user and flight time combination is already being used");
+      }
+    })
+    const eventJson = {
+      username: req.body.username,
+      social_media_handle: req.body.social_media_handle,
+      flight_time: req.body.flight_time,
+      arrival_or_departure: req.body.arrival_or_departure,
+    };
+    const response = db.collection("events").add(eventJson);
+    res.send(response);    
+  } catch (error) {
+    console.log(error);
+    res.send(error);
+  }
+})
+
+app.get('/read/timed/:id', async (req, res) => {
+  try {
+    const id = req.params.id;
+    const eventRef = db.collection("events").doc(String(id));
+    const event = await eventRef.get();
+    let info; 
+    console.log(event.data());
+    if (typeof (event.data()) === 'undefined') {
+      throw new Error("event not found");
+    }
+    else {
+      info = event.data();
+    }
+    res.send(info);
+  } catch (error) {
+    console.log(error);
+    res.send(error);
+  }
+})
+
+app.get('/read/allTimed', async (req, res) => {
+  try {
+    const eventsRef = db.collection("events");
+    const events = await eventsRef.get();
+    let eventsList = [];
+    events.forEach(event => {
+      eventsList.push(event.data());
+    })
+    res.send(eventsList);
+  } catch (error) {
+    console.log(error);
+    res.send(error);
+  }
+})
+
 //cors
 app.use(cors({
     origin: '*'
 }));
+
 // set port, listen for requests
 const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {
