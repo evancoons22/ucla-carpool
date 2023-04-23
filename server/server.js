@@ -19,6 +19,7 @@ admin.initializeApp({
 });
 
 const db = admin.firestore();
+db.settings({ ignoreUndefinedProperties: true });
 
 app.use(express.json());
 
@@ -366,6 +367,7 @@ app.post('/create/event/timed', async (req, res) => {
       arrival_or_departure: req.body.arrival_or_departure,
       uuid: uuid,
     };
+      console.log("received req");
     const response = db.collection("events").doc(uuid).set(eventJson);
     res.send(response);    
   } catch (error) {
