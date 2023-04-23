@@ -1,6 +1,7 @@
 const express = require("express");
 const app = express();
 const mapFunc = require('./maps/maps.js');
+const cors = require('cors');
 
 const admin = require("firebase-admin");
 const credentials = require("./key.json");
@@ -280,6 +281,10 @@ const setDepartureTime = async (leaveDate) => {
   console.log("In server, set departure time to", leaveDate);
 }
 
+//cors
+app.use(cors({
+    origin: '*'
+}));
 // set port, listen for requests
 const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {
