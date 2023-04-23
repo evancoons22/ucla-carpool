@@ -23,29 +23,26 @@ const EnterDetails = () => {
     const [phonenumber, setPhoneNumber] = useState('');
     const [arriving, setArriving] = useState('');
 
-    // const URL = '';
+    const URL = 'http://localhost:8080/create/user';
 
-    /* const codeforlater =  { 
 
-        console.log('submithandled');
+    const handleSubmit = (event) => { 
+        // fetch post request to node backend
         fetch(URL, {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ name, usertime })
+            mode: 'no-cors',
+            body: JSON.stringify({ username: name, bio: 'defaultbio', socialMedia: 'epicgamer12345', uclaHome: 'ok??'   })
         })
             .then(response => response.json())
             .then(data => { 
                 console.log(data);
                 event.target.reset();
             })
-            .catch(error => console.error(error));       // POST REQUEST TO NODE.JS
+            .catch(error => console.error(error));
 
-    } */
-
-    const handleSubmit = (event) => { 
-        // fetch post request to node backend
         console.log("submithandled");
         setName('');
         setUsertime('');
